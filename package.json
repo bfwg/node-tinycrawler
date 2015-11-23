@@ -1,0 +1,25 @@
+{
+  "name": "tinycrawler",
+  "version": "0.1.1",
+  "description": "A node tiny crawler",
+  "main": "./index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfwg/node-tinycrawler.git"
+  },
+  "keywords": [
+    "nodejs",
+    "crawler",
+    "tiny"
+  ],
+  "author": "Fan Jin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bfwg/node-tinycrawler/issues"
+  },
+  "homepage": "https://github.com/bfwg/node-tinycrawler#readme"
+}
