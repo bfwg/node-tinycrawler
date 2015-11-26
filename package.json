@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/bfwg/node-tinycrawler#readme",
   "dependencies": {
+    "express": "^4.13.3",
     "urijs": "^1.17.0"
   }
 }
