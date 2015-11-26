@@ -4,7 +4,7 @@ var app     = express();
 var Crawler = require('./lib/crawler');
 
 app.get('/', (req, res) => {
-  var crawler = new Crawler('http://www.example.com');
+  var crawler = new Crawler('http://www.cgiffard.com/');
 
 
   crawler.on('start', () => {
