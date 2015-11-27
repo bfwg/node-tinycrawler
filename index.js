@@ -7,16 +7,15 @@ app.get('/', (req, res) => {
 
   var crawler = new Crawler('http://www.cgiffard.com/');
 
-
   crawler.on('start', () => {
     console.log('start crawling');
   });
 
-  crawler.on('end', () => {
-    console.log('finished crawling');
+  crawler.on('timeout', () => {
+    console.log('timeout');
   });
 
-  crawler.on('end', () => {
+  crawler.on('complete', () => {
     console.log('finished crawling');
   });
 
