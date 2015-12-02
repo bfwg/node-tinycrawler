@@ -7,15 +7,15 @@ var cheerio = require('cheerio');
 app.get('/', (req, res) => {
 
   var count = 0;
-  var crawler = new Crawler('http://www.vanpeople.com/c/');
+  var crawler = new Crawler('http://www.cgiffard.com');
   crawler.interval = 1;
   crawler.maxDepth = 0;
   crawler.maxListenerCurrency = 100;
 
 
-  crawler.addFetchCondition((purl) => {
-    return !!purl.path.match(/\/c\/[0-9]*\.html/);
-  });
+  // crawler.addFetchCondition((purl) => {
+    // return !!purl.path.match(/\/c\/[0-9]*\.html/);
+  // });
 
   crawler.on('start', () => {
     console.log('Start crawling');
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
   });
 
   crawler.on('fetchstart', (queueItem) => {
-    // console.log('start fetching', queueItem.url);
+    console.log('start fetching', queueItem.url);
   });
 
   crawler.on('fetchredirect', (queueItem, targetl) => {
