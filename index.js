@@ -7,10 +7,12 @@ var cheerio = require('cheerio');
 app.get('/', (req, res) => {
 
   var count = 0;
-  var crawler = new Crawler('http://www.cgiffard.com');
-  crawler.interval = 1;
-  crawler.maxDepth = 0;
-  crawler.maxListenerCurrency = 100;
+  var time = Date.now();
+  var crawler = new Crawler('http://www.vanpeople.com/');
+  // var crawler = new Crawler('http://www.vansky.com/');
+  // var crawler = new Crawler('http://www.westca.com/');
+  crawler.crawlInterval = 10;
+  crawler.maxListenerCurrency = 5;
 
 
   // crawler.addFetchCondition((purl) => {
@@ -49,10 +51,16 @@ app.get('/', (req, res) => {
   });
 
   crawler.on('complete', () => {
-    console.log(count);
+    console.log('Url found: ' + count);
+    console.log('Time to crawl: ' + millisToMinutesAndSeconds(Date.now() - time));
     console.log('Finished crawling');
   });
 
+  function millisToMinutesAndSeconds(millis) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  }
 
   crawler.start();
 
