@@ -8,11 +8,12 @@ app.get('/', (req, res) => {
 
   var count = 0;
   var time = Date.now();
-  var crawler = new Crawler('http://www.vanpeople.com/');
+  var crawler = new Crawler('http://www.quotemedia.com/');
   // var crawler = new Crawler('http://www.vansky.com/');
   // var crawler = new Crawler('http://www.westca.com/');
-  crawler.crawlInterval = 10;
+  crawler.crawlInterval = 3000;
   crawler.maxListenerCurrency = 5;
+  crawler.redisQueue = true;
 
 
   // crawler.addFetchCondition((purl) => {
