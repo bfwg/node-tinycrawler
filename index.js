@@ -6,14 +6,13 @@ var cheerio = require('cheerio');
 
 app.get('/', (req, res) => {
 
-  var count = 0;
   var time = Date.now();
-  // var crawler = new Crawler('http://www.quotemedia.com/');
+  // var crawler = new Crawler('http://www.vanpeople.com/');
   // var crawler = new Crawler('http://cgiffard.com/');
-  var crawler = new Crawler('http://www.yicity.com/');
-  // var crawler = new Crawler('http://www.westca.com/');
-  crawler.crawlInterval = 1;
-  crawler.maxListenerCurrency = 50000;
+  // var crawler = new Crawler('http://www.yicity.com/');
+  var crawler = new Crawler('http://www.quotemedia.com/');
+  // crawler.crawlInterval = 10;
+  // crawler.maxListenerCurrency = 10;
   // crawler.redisQueue = true;
 
 
@@ -48,11 +47,10 @@ app.get('/', (req, res) => {
     // $('.show a strong').each(function(i, element){
       // console.log($(element).text());
     // });
-    count++;
     console.log('finished fetching', queueItem.url);
   });
 
-  crawler.on('complete', () => {
+  crawler.on('complete', (count) => {
     console.log('Url found: ' + count);
     console.log('Time to crawl: ' + millisToMinutesAndSeconds(Date.now() - time));
     console.log('Finished crawling');
