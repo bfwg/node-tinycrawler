@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
   var crawler = new Crawler('http://www.quotemedia.com/');
   // crawler.crawlInterval = 10;
   // crawler.maxListenerCurrency = 10;
-  // crawler.redisQueue = true;
+  crawler.redisQueue = true;
 
 
   // crawler.addFetchCondition((purl) => {
