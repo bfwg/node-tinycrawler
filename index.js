@@ -3,6 +3,7 @@ var express = require('express');
 var app     = express();
 var Crawler = require('./lib/crawler');
 var cheerio = require('cheerio');
+var fs      = require('fs');
 
 app.get('/', (req, res) => {
 
@@ -19,8 +20,12 @@ app.get('/', (req, res) => {
 
 
   crawler.addFetchCondition((url) => {
-    return !!url.path.match(/\/c\/[0-9]*\.html/);
+    if(!!url.path.match(/\/c\/[0-9]*\.html/i) ||!!url.path.match(/.*\/c\/uploadpic\/.*.jpg/i))
+      return true;
+    else
+      return false;
   });
+
 
   crawler.on('start', () => {
     console.log('Start crawling');
@@ -36,8 +41,7 @@ app.get('/', (req, res) => {
   });
 
   crawler.on('fetchstart', (queueItem, options) => {
-
-    options.headers.cookie = 'showadsheader=1; __utmt=1; ci_session=a%3A7%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%229814a1023f772d67195169d2d140be7e%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A11%3A%2299.199.7.29%22%3Bs%3A10%3A%22user_agent%22%3Bs%3A105%3A%22Mozilla%2F5.0+%28X11%3B+Linux+x86_64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F43.0.2357.125+Safari%2F537.36%22%3Bs%3A13%3A%22last_activity%22%3Bi%3A1449534401%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3Bs%3A6%3A%22mobile%22%3Bi%3A1%3Bs%3A7%3A%22is_boot%22%3Bi%3A1%3B%7D722f8ba780defdac380ee9de5798dc33; googcdn=0x18; __utma=220525215.971082950.1449534409.1449534409.1449534409.1; __utmb=220525215.2.10.1449534409; __utmc=220525215; __utmz=220525215.1449534409.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)';
+    options.headers.cookie = ["ci_session=a%3A7%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%222fbf09a4d091fdd433e4ce7f832a7b6a%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A13%3A%2250.92.192.170%22%3Bs%3A10%3A%22user_agent%22%3Bs%3A120%3A%22Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_10_5%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F47.0.2526.73+Safari%2F537.36%22%3Bs%3A13%3A%22last_activity%22%3Bi%3A1449552969%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3Bs%3A6%3A%22mobile%22%3Bi%3A1%3Bs%3A7%3A%22is_boot%22%3Bi%3A1%3B%7D6f33a0d3374223620dce88b0acc06e35; expires=Monday, December 7, 2015 at 11:38:05 PM; path=/; domain=www.vanpeople.com"];
     console.log('start fetching', queueItem.url);
   });
 
@@ -46,9 +50,11 @@ app.get('/', (req, res) => {
   });
 
   crawler.on('fetchcomplete', (queueItem, buffer) => {
-    console.log(queueItem.stateData.contentType);
-    if (queueItem.stateData.contentType === 'image/jpeg')
-      buffer.pipe(fs.createWriteStream('./img/' + queueItem.path + '.jpg'));
+    if (queueItem.stateData.contentType === 'image/jpeg') {
+      if (/[0-9a-z]*.jpg/.exec(queueItem.path))
+        fs.writeFile('img/' + (/[0-9a-z]*.jpg/.exec(queueItem.path))[0], buffer);
+    }
+
 
     // var html = buffer.toString();
     // var $ = cheerio.load(html);
