@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   // crawler.maxDepth = 4;
   // crawler.crawlInterval = 10;
   // crawler.maxListenerCurrency = 10;
-  crawler.redisQueue = true;
+  // crawler.redisQueue = true;
 
 
   crawler.addFetchCondition((url) => {
@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
   });
 
   crawler.on('fetchstart', (queueItem, options) => {
-    options.headers.cookie = ["ci_session=a%3A7%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%2201ef0ba9668eb240c38b2aa8f34b5d42%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A11%3A%2299.199.7.29%22%3Bs%3A10%3A%22user_agent%22%3Bs%3A105%3A%22Mozilla%2F5.0+%28X11%3B+Linux+x86_64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F43.0.2357.125+Safari%2F537.36%22%3Bs%3A13%3A%22last_activity%22%3Bi%3A1449606876%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3Bs%3A6%3A%22mobile%22%3Bi%3A1%3Bs%3A7%3A%22is_boot%22%3Bi%3A1%3B%7Da4aaf2914173b38f8f6c0d77caac9321; expires=Monday, December 7, 2015 at 11:38:05 PM; path=/; domain=www.vanpeople.com"];
+    options.headers.cookie = ["ci_session=a%3A7%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%22502c8b6a0e5b52b8e57e52350af5dbd0%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A11%3A%2299.199.7.29%22%3Bs%3A10%3A%22user_agent%22%3Bs%3A105%3A%22Mozilla%2F5.0+%28X11%3B+Linux+x86_64%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F43.0.2357.125+Safari%2F537.36%22%3Bs%3A13%3A%22last_activity%22%3Bi%3A1449684613%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3Bs%3A6%3A%22mobile%22%3Bi%3A1%3Bs%3A7%3A%22is_boot%22%3Bi%3A1%3B%7D5226068958d28931d37adba92a8f16ee; expires=Wednesday, 9 December 2015 at 12:10:18; path=/; domain=www.vanpeople.com"];
     console.log('start fetching', queueItem.url);
   });
 
