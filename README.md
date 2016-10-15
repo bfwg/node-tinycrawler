@@ -1,11 +1,10 @@
 # Tiny web-crawler for Node.js
 This is a tiny web crawler under 1000 lines of code. 
 # Usage
-```js
+```javascript
 
 var Crawler = require('../lib/crawler')
 var crawler = new Crawler('http://www.someUrl.com');
-
 
 // crawler.maxDepth = 4;
 // crawler.crawlInterval = 10;
@@ -13,66 +12,58 @@ var crawler = new Crawler('http://www.someUrl.com');
 // crawler.redisQueue = true;
 crawler.start();
 ```
+## Lifecycle:
+start
+  |
+fetcherror | timeout
+  |
+fetchcomplete | fetchredirect
+  |
+complete
 
-  crawler.addFetchCondition((url) => {
-    if(!!url.path.match(/\/c\/[0-9]*\.html/i) ||!!url.path.match(/.*\/c\/uploadpic\/.*.jpg/i))
-      return true;
-    else
-      return false;
-  });
-
-
-  crawler.on('start', () => {
+### start
+```javascript
+crawler.on('start', () => {
     console.log('Start crawling');
-  });
-
-
-  crawler.on("fetcherror", (a, b) => {
-    console.log(b.statusCode);
-  });
-
-  crawler.on('timeout', () => {
-    console.log('timeout');
-  });
-
- 
-
-  crawler.on('fetchredirect', (queueItem, targetl) => {
-    console.log('REDIRECTED', queueItem.url, 'to', targetl);
-  });
-
-  crawler.on('fetchcomplete', (queueItem, buffer) => {
-    // if (queueItem.stateData.contentType === 'image/jpeg') {
-      // if (/[0-9a-z]*.jpg/.exec(queueItem.path))
-        // fs.writeFile('img/' + (/[0-9a-z]*.jpg/.exec(queueItem.path))[0], buffer);
-    // }
-
-
-    // var html = buffer.toString();
-    // var $ = cheerio.load(html);
-    // $('.show a strong').each(function(i, element){
-      // console.log($(element).text());
-    // });
-    console.log('finished fetching', queueItem.url);
-  });
-
-  crawler.on('complete', (count) => {
-    console.log('Url found: ' + count);
-    console.log('Time to crawl: ' + millisToMinutesAndSeconds(Date.now() - time));
-    console.log('Finished crawling');
-  });
-
-  function millisToMinutesAndSeconds(millis) {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-  }
-
-  crawler.start();
-
-  res.send('<p style="color: green;">Check your console!</p>');
-});
-app.listen('3002');
-console.log('Crawling happens on port 3002');
-module.exports = app;
+})
 ```
+
+### fetcherror | timeout
+```javascript
+crawler.on("fetcherror", (a, b) => {
+  console.log(b.statusCode);
+});
+
+crawler.on('timeout', () => {
+  console.log('timeout');
+});
+```
+### fetchcomplete | fetchredirect
+```javascript
+crawler.on('fetchredirect', (queueItem, targetl) => {
+  console.log('REDIRECTED', queueItem.url, 'to', targetl);
+});
+
+crawler.on('fetchcomplete', (queueItem, buffer) => {
+  // Do whatever you want with queueItem or buffer
+  console.log('finished fetching', queueItem.url);
+});
+```
+
+## More options
+
+### maxDepth
+The maximum depth crawler allow to go.
+
+### crawlInterval
+The interval for dispatching crawlers.
+
+### maxListenerCurrency
+How many crawlers are we dispatching at the same time.
+
+### redisQueue
+For big webside, default in memory queue might not be enough. 
+Install redis first and config tiny-crawler to connect to redis.
+[config redis connection](https://github.com/bfwg/node-tinycrawler/blob/master/lib/redis-queue.js#L25).
+
+
