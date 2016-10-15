@@ -13,13 +13,7 @@ var crawler = new Crawler('http://www.someUrl.com');
 crawler.start();
 ```
 ## Lifecycle:
-start
-  |
-fetcherror | timeout
-  |
-fetchcomplete | fetchredirect
-  |
-complete
+start => fetcherror | timeout => fetchcomplete | fetchredirect => complete
 
 ### start
 ```javascript
