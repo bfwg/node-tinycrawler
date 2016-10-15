@@ -59,3 +59,4 @@ How many crawlers are we dispatching at the same time.
 For bigger websides, default in memory queue might not be enough. 
 Install redis first and [config tiny-crawler to use redis queue](https://github.com/bfwg/node-tinycrawler/blob/master/lib/redis-queue.js#L25).
 
+This repository is heavily influenced by [node-simple-crawler](https://github.com/cgiffard/node-simplecrawler)
