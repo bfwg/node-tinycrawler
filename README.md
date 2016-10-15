@@ -56,8 +56,6 @@ The interval for dispatching crawlers.
 How many crawlers are we dispatching at the same time.
 
 ### redisQueue
-For big webside, default in memory queue might not be enough. 
-Install redis first and config tiny-crawler to connect to redis.
-[config redis connection](https://github.com/bfwg/node-tinycrawler/blob/master/lib/redis-queue.js#L25).
-
+For bigger websides, default in memory queue might not be enough. 
+Install redis first and [config tiny-crawler to use redis queue](https://github.com/bfwg/node-tinycrawler/blob/master/lib/redis-queue.js#L25).
 
