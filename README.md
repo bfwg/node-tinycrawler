@@ -1,5 +1,6 @@
 # Tiny web-crawler for Node.js
 This is a tiny web crawler under 1000 lines of code. 
+
 [![Maintenance Status][status-image]][status-url]
 [status-image]: https://img.shields.io/badge/status-maintained-brightgreen.svg
 [status-url]: https://github.com/bfwg/node-tinycrawler
